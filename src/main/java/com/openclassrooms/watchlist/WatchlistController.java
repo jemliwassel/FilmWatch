@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class WatchlistController {
@@ -42,12 +45,20 @@ public class WatchlistController {
 	}
 
 	@PostMapping("/watchlistItemForm")
-	public ModelAndView submitWatchlistItemForm(WatchlistItem watchlistItem) {
+	public ModelAndView submitWatchlistItemForm(@Valid WatchlistItem watchlistItem,
+			BindingResult bindingResult) {
 		
+		if (bindingResult.hasErrors()) {
+			return new ModelAndView("watchlistItemForm"); 
+		}
 		WatchlistItem existingItem = findWatchlistItemById(watchlistItem.getId());
 		
 		//Verify either the watchlistItem exists or not before updating it
 		if (existingItem == null) {
+			if (itemAlreadyExists(watchlistItem.getTitle())) {
+				bindingResult.rejectValue("title", "", "This title already exists on your watchlist");
+				return new ModelAndView("watchlistItemForm"); 
+			}
 			watchlistItem.setId(index++);
 			watchlistItems.add(watchlistItem);
 		} else {
@@ -73,5 +84,14 @@ public class WatchlistController {
 		model.put("numberOfMovies", watchlistItems.size());
 		
 		return new ModelAndView(viewName,model);
+	}
+	
+	private Boolean itemAlreadyExists(String title) {
+		for(WatchlistItem watchlistItem: watchlistItems) {
+			if (watchlistItem.getTitle().equals(title)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
