@@ -3,6 +3,8 @@ package com.openclassrooms.watchlist.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.watchlist.domain.WatchlistItem;
 
 public class WatchlistRepository {
