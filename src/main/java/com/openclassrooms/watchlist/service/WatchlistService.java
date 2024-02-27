@@ -2,15 +2,25 @@ package com.openclassrooms.watchlist.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.openclassrooms.watchlist.repository.WatchlistRepository;
 import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.exception.DuplicateTitleException;
 
 public class WatchlistService {
 	
-	WatchlistRepository watchlistRepository = new WatchlistRepository();
-	MovieRatingService movieRatingService = new MovieRatingService();
+	WatchlistRepository watchlistRepository;
+	MovieRatingService movieRatingService;
 	
+	
+	public WatchlistService(WatchlistRepository watchlistRepository, MovieRatingService movieRatingService) {
+		super();
+		this.watchlistRepository = watchlistRepository;
+		this.movieRatingService = movieRatingService;
+	}
+
 	public List<WatchlistItem> getWatchlistItems(){
 		List<WatchlistItem> watchlistItems = watchlistRepository.getList();
 		for (WatchlistItem watchlistItem : watchlistItems) {
