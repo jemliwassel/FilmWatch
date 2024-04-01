@@ -9,12 +9,13 @@ import com.openclassrooms.watchlist.repository.WatchlistRepository;
 import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.exception.DuplicateTitleException;
 
+@Service
 public class WatchlistService {
 	
 	WatchlistRepository watchlistRepository;
 	MovieRatingService movieRatingService;
 	
-	
+	@Autowired
 	public WatchlistService(WatchlistRepository watchlistRepository, MovieRatingService movieRatingService) {
 		super();
 		this.watchlistRepository = watchlistRepository;
