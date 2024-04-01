@@ -17,6 +17,7 @@ import static org.mockito.ArgumentMatchers.any;
 import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.repository.WatchlistRepository;
 import com.openclassrooms.watchlist.service.MovieRatingService;
+import com.openclassrooms.watchlist.service.MovieRatingServiceImpl;
 import com.openclassrooms.watchlist.service.WatchlistService;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -39,7 +40,7 @@ public class WatchlistServiceTest {
 		WatchlistItem item2 = new WatchlistItem("Star Treck", "8.8", "M" , "" , 2);
 		List<WatchlistItem> mockItems = Arrays.asList(item1, item2);
 		watchlistRepositoryMock = mock(WatchlistRepository.class);
-		movieRatingServiceMock = mock(MovieRatingService.class);
+		movieRatingServiceMock = mock(MovieRatingServiceImpl.class);
 		watchlistService = new WatchlistService(watchlistRepositoryMock, movieRatingServiceMock);
 		when(watchlistRepositoryMock.getList()).thenReturn(mockItems);
 		
@@ -59,7 +60,7 @@ public class WatchlistServiceTest {
 		WatchlistItem item1 = new WatchlistItem("Star Wars", "7.7", "M" , "" , 1);
 		List<WatchlistItem> mockItems = Arrays.asList(item1);
 		watchlistRepositoryMock = mock(WatchlistRepository.class);
-		movieRatingServiceMock = mock(MovieRatingService.class);
+		movieRatingServiceMock = mock(MovieRatingServiceImpl.class);
 		watchlistService = new WatchlistService(watchlistRepositoryMock, movieRatingServiceMock);
 		when(watchlistRepositoryMock.getList()).thenReturn(mockItems);
 		when(movieRatingServiceMock.getMovieRating(any(String.class))).thenReturn("10");
@@ -78,7 +79,7 @@ public class WatchlistServiceTest {
 		WatchlistItem item2 = new WatchlistItem("Star Treck", "8.8", "M" , "" , 2);
 		List<WatchlistItem> mockItems = Arrays.asList(item1, item2);
 		watchlistRepositoryMock = mock(WatchlistRepository.class);
-		movieRatingServiceMock = mock(MovieRatingService.class);
+		movieRatingServiceMock = mock(MovieRatingServiceImpl.class);
 		watchlistService = new WatchlistService(watchlistRepositoryMock, movieRatingServiceMock);
 		when(watchlistRepositoryMock.getList()).thenReturn(mockItems);
 		
